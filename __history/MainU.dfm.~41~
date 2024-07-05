@@ -1,0 +1,145 @@
+object MainF: TMainF
+  Left = 0
+  Top = 0
+  BorderIcons = [biSystemMenu]
+  Caption = 'Main'
+  ClientHeight = 444
+  ClientWidth = 974
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  Position = poScreenCenter
+  TextHeight = 13
+  object dg1: TDBGrid
+    Left = 0
+    Top = 40
+    Width = 974
+    Height = 404
+    Align = alClient
+    DataSource = DataM.ds1
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Arial'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'id'
+        Title.Caption = 'ID'
+        Width = 40
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'name'
+        Title.Caption = 'Name'
+        Width = 210
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'empId'
+        Title.Caption = 'EmpID'
+        Width = 100
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'nic'
+        Title.Caption = 'NIC'
+        Width = 150
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'dob'
+        Title.Caption = 'DOB'
+        Width = 100
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'address'
+        Title.Caption = 'Address'
+        Width = 344
+        Visible = True
+      end>
+  end
+  object toppnl: TPanel
+    Left = 0
+    Top = 0
+    Width = 974
+    Height = 40
+    Align = alTop
+    BevelOuter = bvNone
+    TabOrder = 1
+    ExplicitWidth = 970
+    object searchbtn: TButton
+      Left = 536
+      Top = 9
+      Width = 75
+      Height = 25
+      Caption = 'Search'
+      TabOrder = 0
+      OnClick = searchbtnClick
+    end
+    object addbtn: TButton
+      Left = 624
+      Top = 9
+      Width = 75
+      Height = 25
+      Caption = 'Add'
+      TabOrder = 1
+      OnClick = addbtnClick
+    end
+    object editbtn: TButton
+      Left = 712
+      Top = 9
+      Width = 75
+      Height = 25
+      Caption = 'Edit'
+      TabOrder = 2
+      OnClick = editbtnClick
+    end
+    object deletebtn: TButton
+      Left = 800
+      Top = 9
+      Width = 75
+      Height = 25
+      Caption = 'Delete'
+      TabOrder = 3
+      OnClick = deletebtnClick
+    end
+    object exitbtn: TButton
+      Left = 888
+      Top = 9
+      Width = 75
+      Height = 25
+      Caption = 'Exit'
+      TabOrder = 4
+      OnClick = exitbtnClick
+    end
+    object searched: TEdit
+      Left = 8
+      Top = 8
+      Width = 369
+      Height = 21
+      Hint = 'Enter Name, EmpID, NIC here...'
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 5
+      TextHint = 'Enter Name, EmpID, NIC here...'
+    end
+  end
+end

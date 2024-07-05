@@ -1,0 +1,11 @@
+# Ignore everything
+*
+
+# But not these files...
+!.gitignore
+!*.dpr
+!*.dproj
+
+# Or these directories
+!src/
+!res/

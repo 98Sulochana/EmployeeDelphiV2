@@ -1,0 +1,108 @@
+unit DataU;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.VCLUI.Wait,
+  Data.DB, FireDAC.Comp.Client, FireDAC.Phys.MySQL, FireDAC.Phys.MySQLDef,
+  FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt,
+  FireDAC.Comp.DataSet, Vcl.Dialogs;
+
+type
+  TDataM = class(TDataModule)
+    con1: TFDConnection;
+    qr1: TFDQuery;
+    ds1: TDataSource;
+    qr1id: TFDAutoIncField;
+    qr1name: TStringField;
+    qr1empId: TStringField;
+    qr1nic: TStringField;
+    qr1dob: TDateField;
+    qr1address: TStringField;
+    ds2: TDataSource;
+    qrContact: TFDQuery;
+    qrContactid: TFDAutoIncField;
+    qrContactempId: TIntegerField;
+    qrContactcontact: TStringField;
+    qr1age: TIntegerField;
+    procedure DataModuleCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    procedure StartTransaction;
+    procedure CommitTransaction;
+    procedure RollbackTransaction;
+  end;
+
+var
+  DataM: TDataM;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+procedure TDataM.DataModuleCreate(Sender: TObject);
+begin
+  // Set date format
+  FormatSettings.ShortDateFormat := 'yyyy-mm-dd';
+
+  // Error handling for opening the connection and queries
+  try
+    con1.Open();
+    qr1.Open();
+    qrContact.Open();
+  except
+    on E: Exception do
+    begin
+      ShowMessage('Error opening database connection or queries: ' + E.Message);
+    end;
+  end;
+end;
+
+// Start a new transaction
+procedure TDataM.StartTransaction;
+begin
+  try
+    con1.StartTransaction;
+  except
+    on E: Exception do
+    begin
+      ShowMessage('Error starting transaction: ' + E.Message);
+    end;
+  end;
+end;
+
+// Commit the current transaction
+procedure TDataM.CommitTransaction;
+begin
+  try
+    con1.Commit;
+  except
+    on E: Exception do
+    begin
+      ShowMessage('Error committing transaction: ' + E.Message);
+      con1.Rollback;
+    end;
+  end;
+end;
+
+// Rollback the current transaction
+procedure TDataM.RollbackTransaction;
+begin
+  try
+    con1.Rollback;
+  except
+    on E: Exception do
+    begin
+      ShowMessage('Error rolling back transaction: ' + E.Message);
+    end;
+  end;
+end;
+
+end.
+
