@@ -1,0 +1,118 @@
+object ExportF: TExportF
+  Left = 0
+  Top = 0
+  BorderStyle = bsToolWindow
+  Caption = 'Export Employee'
+  ClientHeight = 405
+  ClientWidth = 844
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  TextHeight = 15
+  object DBGrid1: TDBGrid
+    Left = 0
+    Top = 35
+    Width = 844
+    Height = 370
+    Align = alClient
+    DataSource = DataM.ds1
+    PopupMenu = PopupMenu1
+    TabOrder = 0
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -12
+    TitleFont.Name = 'Segoe UI'
+    TitleFont.Style = []
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'id'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'name'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'empId'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'nic'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'dob'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'address'
+        Visible = True
+      end>
+  end
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 844
+    Height = 35
+    Align = alTop
+    TabOrder = 1
+    ExplicitWidth = 836
+    object searched2: TEdit
+      Left = 8
+      Top = 6
+      Width = 353
+      Height = 23
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
+      TextHint = 'Enter Name, EmpID, NIC here...'
+    end
+    object Button1: TButton
+      Left = 552
+      Top = 4
+      Width = 120
+      Height = 25
+      Caption = 'Search'
+      TabOrder = 1
+      OnClick = Button1Click
+    end
+    object printbtn: TButton
+      Left = 705
+      Top = 4
+      Width = 120
+      Height = 25
+      Caption = 'Print'
+      TabOrder = 2
+      OnClick = printbtnClick
+    end
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 624
+    Top = 56
+    object CopytoClipboard1: TMenuItem
+      Caption = 'Copy to Clipboard'
+      OnClick = CopytoClipboard1Click
+    end
+    object exportCSV1: TMenuItem
+      Caption = 'Export CSV'
+      OnClick = exportCSV1Click
+    end
+    object ExportXML1: TMenuItem
+      Caption = 'Export XML'
+      OnClick = ExportXML1Click
+    end
+    object ExportExcel1: TMenuItem
+      Caption = 'Export Excel'
+      OnClick = ExportExcel1Click
+    end
+  end
+end

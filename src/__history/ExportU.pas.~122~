@@ -1,0 +1,220 @@
+unit ExportU;
+
+interface
+
+uses
+ Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.StdCtrls, Vcl.ExtCtrls,
+  Vcl.Grids, Vcl.DBGrids, Vcl.Menus, Vcl.Clipbrd, Xml.XMLDoc, Xml.XMLIntf, ComObj,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, FireDAC.Stan.ExprFuncs, RLReport,Datasnap.DBClient;
+
+type
+  TExportF = class(TForm)
+    DBGrid1: TDBGrid;
+    Panel1: TPanel;
+    searched2: TEdit;
+    Button1: TButton;
+    printbtn: TButton;
+    PopupMenu1: TPopupMenu;
+    CopytoClipboard1: TMenuItem;
+    exportCSV1: TMenuItem;
+    ExportXML1: TMenuItem;
+    ExportExcel1: TMenuItem;
+    procedure Button1Click(Sender: TObject);
+    procedure printbtnClick(Sender: TObject);
+    procedure DBGrid1MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure CopytoClipboard1Click(Sender: TObject);
+    procedure exportCSV1Click(Sender: TObject);
+    procedure ExportXML1Click(Sender: TObject);
+    procedure ExportExcel1Click(Sender: TObject);
+  private
+    { Private declarations }
+    procedure ApplyFilter;
+    procedure ExportSelectedRowToCSV;
+    procedure ExportSelectedRowToXML;
+    procedure ExportSelectedRowToExcel;
+  public
+    { Public declarations }
+  end;
+
+var
+  ExportF: TExportF;
+
+implementation
+
+{$R *.dfm}
+
+uses
+  DataU, ReportU;
+
+procedure TExportF.Button1Click(Sender: TObject);
+begin
+  ApplyFilter;
+end;
+
+procedure TExportF.DBGrid1MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  if Button = mbRight then
+    PopupMenu1.Popup(Mouse.CursorPos.X, Mouse.CursorPos.Y);
+end;
+
+procedure TExportF.ApplyFilter;
+var
+  FilterText: string;
+begin
+  FilterText := Trim(searched2.Text);
+  DataM.qr1.Filtered := FilterText <> '';
+  if DataM.qr1.Filtered then
+    DataM.qr1.Filter := Format('Upper(name) LIKE %s OR Upper(NIC) LIKE %s OR Upper(EmpID) LIKE %s',
+                               [QuotedStr('%' + UpperCase(FilterText) + '%'),
+                                QuotedStr('%' + UpperCase(FilterText) + '%'),
+                                QuotedStr('%' + UpperCase(FilterText) + '%')]);
+end;
+
+
+procedure TExportF.printbtnClick(Sender: TObject);
+var
+  Bookmarks: array of TBookmark;
+  i: Integer;
+  TempClientDataSet: TClientDataSet;
+  TempDataSource: TDataSource;
+begin
+  // Create a temporary dataset
+  TempClientDataSet := TClientDataSet.Create(nil);
+  TempDataSource := TDataSource.Create(nil);
+  try
+    // Clone the structure of the original dataset
+    TempClientDataSet.CloneCursor(DataM.qr1, True);
+
+    // Set the temporary dataset to the data source
+    TempDataSource.DataSet := TempClientDataSet;
+
+    // Set length of the bookmarks array to match the number of selected rows
+    SetLength(Bookmarks, DBGrid1.SelectedRows.Count);
+
+    // Store the bookmarks of selected rows
+    for i := 0 to DBGrid1.SelectedRows.Count - 1 do
+    begin
+      DataM.qr1.GotoBookmark(DBGrid1.SelectedRows.Items[i]);
+      Bookmarks[i] := DataM.qr1.GetBookmark;
+
+      // Add the selected row data to the temporary dataset
+      TempClientDataSet.Append;
+      TempClientDataSet.CopyFields(DataM.qr1);
+      TempClientDataSet.Post;
+    end;
+
+    // Create the report instance
+    ReportF := TReportF.Create(nil);
+    try
+      // Set the temporary dataset's data source as the datasource for the report
+      ReportF.RLReport1.DataSource := TempDataSource;
+
+      // Prepare the report data
+      ReportF.RLReport1.Prepare;
+
+      // Preview the report
+      ReportF.RLReport1.Preview; // Use Preview for previewing, or Print for printing
+    finally
+      // Free the report instance after use
+      ReportF.Free;
+    end;
+
+  finally
+    // Free the temporary dataset and datasource after use
+    TempClientDataSet.Free;
+    TempDataSource.Free;
+  end;
+end;
+
+
+
+procedure TExportF.CopytoClipboard1Click(Sender: TObject);
+var
+  i: Integer;
+  ClipboardText: string;
+begin
+  ClipboardText := '';
+  for i := 0 to DBGrid1.Columns.Count - 1 do
+  begin
+    ClipboardText := ClipboardText + DBGrid1.Fields[i].AsString + #9;
+  end;
+  ClipboardText := ClipboardText + sLineBreak;
+  Clipboard.AsText := ClipboardText;
+end;
+
+procedure TExportF.exportCSV1Click(Sender: TObject);
+begin
+  ExportSelectedRowToCSV;
+end;
+
+procedure TExportF.ExportXML1Click(Sender: TObject);
+begin
+  ExportSelectedRowToXML;
+end;
+
+procedure TExportF.ExportExcel1Click(Sender: TObject);
+begin
+  ExportSelectedRowToExcel;
+end;
+
+procedure TExportF.ExportSelectedRowToCSV;
+var
+  CSVFile: TextFile;
+  i: Integer;
+  Line: string;
+begin
+  AssignFile(CSVFile, 'EmployeeData.csv');
+  Rewrite(CSVFile);
+  try
+    Line := '';
+    for i := 0 to DBGrid1.Columns.Count - 1 do
+      Line := Line + DBGrid1.Columns[i].Title.Caption + ',';
+    Writeln(CSVFile, Line);
+    Line := '';
+    for i := 0 to DBGrid1.Columns.Count - 1 do
+      Line := Line + DBGrid1.Fields[i].AsString + ',';
+    Writeln(CSVFile, Line);
+  finally
+    CloseFile(CSVFile);
+  end;
+end;
+
+procedure TExportF.ExportSelectedRowToXML;
+var
+  XMLDocument: IXMLDocument;
+  RootNode, RowNode, CellNode: IXMLNode;
+  i: Integer;
+begin
+  XMLDocument := NewXMLDocument;
+  RootNode := XMLDocument.AddChild('Records');
+  RowNode := RootNode.AddChild('Record');
+  for i := 0 to DBGrid1.Columns.Count - 1 do
+  begin
+    CellNode := RowNode.AddChild(DBGrid1.Columns[i].FieldName);
+    CellNode.Text := DBGrid1.Fields[i].AsString;
+  end;
+  XMLDocument.SaveToFile('EmployeeData.xml');
+end;
+
+procedure TExportF.ExportSelectedRowToExcel;
+var
+  ExcelApp, Workbook, Worksheet: OleVariant;
+  i: Integer;
+begin
+  ExcelApp := CreateOleObject('Excel.Application');
+  Workbook := ExcelApp.Workbooks.Add;
+  Worksheet := Workbook.Worksheets[1];
+  for i := 0 to DBGrid1.Columns.Count - 1 do
+    Worksheet.Cells[1, i + 1].Value := DBGrid1.Columns[i].Title.Caption;
+  for i := 0 to DBGrid1.Columns.Count - 1 do
+    Worksheet.Cells[2, i + 1].Value := DBGrid1.Fields[i].AsString;
+  Workbook.SaveAs('EmployeeData.xlsx');
+  ExcelApp.Quit;
+end;
+
+end.
