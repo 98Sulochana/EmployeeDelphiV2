@@ -10,8 +10,8 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, RLReport, Vcl.Imaging.jpeg;
 
 type
-  TFormReport = class(TForm)
-    ReportF: TRLReport;
+  TForm2 = class(TForm)
+    RLReport1: TRLReport;
     RLBand1: TRLBand;
     RLImage1: TRLImage;
     RLLabel6: TRLLabel;
@@ -54,7 +54,7 @@ type
   end;
 
 var
-  FormReport: TFormReport;
+  Form2: TForm2;
 
 implementation
 

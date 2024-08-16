@@ -1,7 +1,7 @@
-object FormReport: TFormReport
+object Form2: TForm2
   Left = 0
   Top = 0
-  Caption = 'FormReport'
+  Caption = 'Form2'
   ClientHeight = 506
   ClientWidth = 785
   Color = clBtnFace
@@ -11,7 +11,7 @@ object FormReport: TFormReport
   Font.Name = 'Segoe UI'
   Font.Style = []
   TextHeight = 15
-  object ReportF: TRLReport
+  object RLReport1: TRLReport
     Left = 0
     Top = 0
     Width = 794

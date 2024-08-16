@@ -30,6 +30,7 @@ type
     procedure exportCSV1Click(Sender: TObject);
     procedure ExportXML1Click(Sender: TObject);
     procedure ExportExcel1Click(Sender: TObject);
+   // procedure Button2Click(Sender: TObject);
   private
     { Private declarations }
     procedure ApplyFilter;
@@ -55,6 +56,11 @@ begin
   ApplyFilter;
 end;
 
+//procedure TExportF.Button2Click(Sender: TObject);
+//begin
+//  TestF.RLReport1.Preview;
+//end;
+
 procedure TExportF.DBGrid1MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
@@ -78,69 +84,72 @@ end;
 
 //Print button function implementation
 procedure TExportF.printbtnClick(Sender: TObject);
- begin
-  // Assuming DataSource1 is linked to Employee dataset and DataSource2 to Contact dataset
 
-  // Setup the master-detail relationship
-  ReportF.qrContact.MasterSource := ReportF.qr1;
-  ReportF.qrContact.MasterFields := 'id';
+var
+  Bookmarks: array of TBookmark;
+  i: Integer;
+  EmpIdValue: Variant;
+  FilterString: string;
+begin
+  if DBGrid1.SelectedRows.Count = 0 then
+  begin
+    ShowMessage('Please select one or more records to print.');
+    Exit;
+  end;
 
-  // Preview the report
-  ReportF.Preview;
+  SetLength(Bookmarks, DBGrid1.SelectedRows.Count); // Set length of bookmarks array to match number of selected rows
+
+  // Save bookmarks
+  for i := 0 to DBGrid1.SelectedRows.Count - 1 do
+  begin
+    Bookmarks[i] := DBGrid1.SelectedRows.Items[i];
+  end;
+
+  ReportF := TReportF.Create(nil); // Create the report instance
+  try
+    ReportF.qr1.Open;
+    ReportF.qrContact.Open;
+
+    // Iterate through bookmarks and generate report pages
+    for i := 0 to Length(Bookmarks) - 1 do
+    begin
+      ReportF.qr1.GotoBookmark(Bookmarks[i]);
+
+      EmpIdValue := ReportF.qr1.FieldByName('id').Value; // Use 'id' field from empdata
+
+      // Apply filter to qrContact based on the selected empId
+      FilterString := 'empId = ' + QuotedStr(VarToStr(EmpIdValue));
+      ReportF.qrContact.Filter := FilterString;
+      ReportF.qrContact.Filtered := True;
+
+      ReportF.qrContact.First;    // Refresh dataset
+
+      // If not first record, add a new page
+      if i > 0 then
+      begin
+        ReportF.RLReport1.NewPage;
+      end;
+
+
+    end;
+       ReportF.RLReport1.Prepare;
+      ReportF.RLReport1.Preview;
+  finally
+    ReportF.Free;
+  end;
 end;
-//var
-//  Bookmarks: array of TBookmark;
-//  i: Integer;
-//  EmpIdValue: Variant;
-//  FilterString: string;
-//begin
-//  if DBGrid1.SelectedRows.Count = 0 then
-//  begin
-//    ShowMessage('Please select one or more records to print.');
-//    Exit;
-//  end;
-//
-//  SetLength(Bookmarks, DBGrid1.SelectedRows.Count); // Set length of bookmarks array to match number of selected rows
-//
-//  // Save bookmarks
-//  for i := 0 to DBGrid1.SelectedRows.Count - 1 do
-//  begin
-//    Bookmarks[i] := DBGrid1.SelectedRows.Items[i];
-//  end;
-//
-//  ReportF := TReportF.Create(nil); // Create the report instance
-//  try
-//    ReportF.qr1.Open;
-//    ReportF.qrContact.Open;
-//
-//    // Iterate through bookmarks and generate report pages
-//    for i := 0 to Length(Bookmarks) - 1 do
-//    begin
-//      ReportF.qr1.GotoBookmark(Bookmarks[i]);
-//
-//      EmpIdValue := ReportF.qr1.FieldByName('id').Value; // Use 'id' field from empdata
-//
-//      // Apply filter to qrContact based on the selected empId
-//      FilterString := 'empId = ' + QuotedStr(VarToStr(EmpIdValue));
-//      ReportF.qrContact.Filter := FilterString;
-//      ReportF.qrContact.Filtered := True;
-//
-//      ReportF.qrContact.First;    // Refresh dataset
-//
-//      // If not first record, add a new page
-//      if i > 0 then
-//      begin
-//        ReportF.RLReport1.NewPage;
-//      end;
+
+// begin
 //
 //
-//    end;
-//       ReportF.RLReport1.Prepare;
-//      ReportF.RLReport1.Preview;
-//  finally
-//    ReportF.Free;
-//  end;
-end;
+//  // Setup the master-detail relationship
+//  ReportF.qrContact.MasterSource := ReportF.DataSource1;
+//  ReportF.qrContact.MasterFields := 'id';
+//
+//  // Preview the report
+//  ReportF.RLReport1.Preview;
+//end;
+
 
 //procedure TExportF.printbtnClick(Sender: TObject);
 //var

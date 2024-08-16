@@ -30,6 +30,7 @@ type
     procedure exportCSV1Click(Sender: TObject);
     procedure ExportXML1Click(Sender: TObject);
     procedure ExportExcel1Click(Sender: TObject);
+   // procedure Button2Click(Sender: TObject);
   private
     { Private declarations }
     procedure ApplyFilter;
@@ -55,6 +56,11 @@ begin
   ApplyFilter;
 end;
 
+//procedure TExportF.Button2Click(Sender: TObject);
+//begin
+//  TestF.RLReport1.Preview;
+//end;
+
 procedure TExportF.DBGrid1MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
@@ -78,97 +84,54 @@ end;
 
 //Print button function implementation
 procedure TExportF.printbtnClick(Sender: TObject);
-
 var
-  Bookmarks: array of TBookmark;
   i: Integer;
-  EmpIdValue: Variant;
+  SelectedIDs: TStringList;
   FilterString: string;
 begin
-  if DBGrid1.SelectedRows.Count = 0 then
-  begin
-    ShowMessage('Please select one or more records to print.');
-    Exit;
-  end;
-
-  SetLength(Bookmarks, DBGrid1.SelectedRows.Count); // Set length of bookmarks array to match number of selected rows
-
-  // Save bookmarks
-  for i := 0 to DBGrid1.SelectedRows.Count - 1 do
-  begin
-    Bookmarks[i] := DBGrid1.SelectedRows.Items[i];
-  end;
-
-  ReportF := TReportF.Create(nil); // Create the report instance
+  SelectedIDs := TStringList.Create;
   try
-    ReportF.qr1.Open;
-    ReportF.qrContact.Open;
-
-    // Iterate through bookmarks and generate report pages
-    for i := 0 to Length(Bookmarks) - 1 do
-    begin
-      ReportF.qr1.GotoBookmark(Bookmarks[i]);
-
-      EmpIdValue := ReportF.qr1.FieldByName('id').Value; // Use 'id' field from empdata
-
-      // Apply filter to qrContact based on the selected empId
-      FilterString := 'empId = ' + QuotedStr(VarToStr(EmpIdValue));
-      ReportF.qrContact.Filter := FilterString;
-      ReportF.qrContact.Filtered := True;
-
-      ReportF.qrContact.First;    // Refresh dataset
-
-      // If not first record, add a new page
-      if i > 0 then
+    // Collect selected IDs from the grid using bookmarks
+    DBGrid1.DataSource.DataSet.DisableControls;
+    try
+      for i := 0 to DBGrid1.SelectedRows.Count - 1 do
       begin
-        ReportF.RLReport1.NewPage;
+        DBGrid1.DataSource.DataSet.GotoBookmark(DBGrid1.SelectedRows.Items[i]);
+        SelectedIDs.Add(DBGrid1.DataSource.DataSet.FieldByName('id').AsString);
       end;
-
-
+    finally
+      DBGrid1.DataSource.DataSet.EnableControls;
     end;
-       ReportF.RLReport1.Prepare;
-      ReportF.RLReport1.Preview;
+
+    if SelectedIDs.Count > 0 then
+    begin
+      // Create a filter string suitable for the Filter property
+      FilterString := 'id IN (' + SelectedIDs.CommaText + ')';
+
+      // Apply the filter to the dataset
+      ReporTest.Form1.qr1.Filter := FilterString;
+      ReporTest.Form1.qr1.Filtered := True;
+
+      // Ensure the related dataset for contacts is also filtered
+      ReporTest.Form1.qrContact.Filtered := False; // Clear previous filter
+      ReporTest.Form1.qrContact.Filter := 'empId IN (' + SelectedIDs.CommaText + ')';
+      ReporTest.Form1.qrContact.Filtered := True;
+
+      // Preview the combined report
+      ReporTest.Form1.RLReport1.PreviewModal;
+
+      // Reset the filters
+      ReporTest.Form1.qr1.Filtered := False;
+      ReporTest.Form1.qrContact.Filtered := False;
+    end
+    else
+    begin
+      ShowMessage('No rows selected for printing.');
+    end;
   finally
-    ReportF.Free;
+    SelectedIDs.Free;
   end;
 end;
-
-//procedure TExportF.printbtnClick(Sender: TObject);
-//var
-//  Bookmarks: array of TBookmark;
-//  i: Integer;
-//  Filter: string;
-//begin
-//  SetLength(Bookmarks, DBGrid1.SelectedRows.Count);
-//
-//  for i := 0 to DBGrid1.SelectedRows.Count - 1 do
-//  begin
-//    ReportF.qr1.GotoBookmark(DBGrid1.SelectedRows.Items[i]);
-//    Bookmarks[i] := ReportF.qr1.GetBookmark;
-//  end;
-//
-//  Filter := '';
-//  for i := 0 to Length(Bookmarks) - 1 do
-//  begin
-//    ReportF.qr1.GotoBookmark(Bookmarks[i]);
-//    if i > 0 then
-//      Filter := Filter + ',';
-//    Filter := Filter + ReportF.qr1.FieldByName('id').AsString;
-//  end;
-//
-//  ReportF.qr1.Filter := 'id IN (' + Filter + ')';
-//  ReportF.qr1.Filtered := True;
-//
-//  ReportF := TReportF.Create(nil);
-//  try
-//
-//    ReportF.RLReport1.Prepare;
-//    ReportF.RLReport1.Preview;
-//  finally
-//    ReportF.Free;
-//    ReportF.qr1.Filtered := False;
-//  end;
-//end;
 
 //CopytoClipboard popup menu implementation
 procedure TExportF.CopytoClipboard1Click(Sender: TObject);

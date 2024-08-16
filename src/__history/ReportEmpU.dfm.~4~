@@ -1,7 +1,7 @@
-object FormReport: TFormReport
+object Form2: TForm2
   Left = 0
   Top = 0
-  Caption = 'FormReport'
+  Caption = 'Form2'
   ClientHeight = 506
   ClientWidth = 785
   Color = clBtnFace
