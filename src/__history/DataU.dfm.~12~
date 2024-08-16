@@ -16,7 +16,7 @@ object DataM: TDataM
     Active = True
     Connection = con1
     SQL.Strings = (
-      'select * from empdata    ')
+      'select * from empdata     limit 5')
     Left = 102
     Top = 43
     object qr1id: TFDAutoIncField
@@ -85,6 +85,7 @@ object DataM: TDataM
     Top = 43
   end
   object qrContact: TFDQuery
+    Active = True
     MasterSource = ds1
     MasterFields = 'empId'
     Connection = con1
@@ -98,16 +99,16 @@ object DataM: TDataM
       ProviderFlags = [pfInWhere, pfInKey]
       ReadOnly = True
     end
+    object qrContactempId: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'empId'
+      Origin = 'empId'
+    end
     object qrContactcontact: TStringField
       FieldName = 'contact'
       Origin = 'contact'
       Required = True
       Size = 50
-    end
-    object qrContactempId: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'empId'
-      Origin = 'empId'
     end
   end
 end

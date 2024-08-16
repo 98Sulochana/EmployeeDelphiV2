@@ -30,7 +30,6 @@ type
     procedure exportCSV1Click(Sender: TObject);
     procedure ExportXML1Click(Sender: TObject);
     procedure ExportExcel1Click(Sender: TObject);
-   // procedure Button2Click(Sender: TObject);
   private
     { Private declarations }
     procedure ApplyFilter;
@@ -55,11 +54,6 @@ procedure TExportF.Button1Click(Sender: TObject);
 begin
   ApplyFilter;
 end;
-
-//procedure TExportF.Button2Click(Sender: TObject);
-//begin
-//  TestF.RLReport1.Preview;
-//end;
 
 procedure TExportF.DBGrid1MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
@@ -130,26 +124,14 @@ begin
         ReportF.RLReport1.NewPage;
       end;
 
-
-    end;
-       ReportF.RLReport1.Prepare;
+      ReportF.RLReport1.Prepare;
       ReportF.RLReport1.Preview;
+    end;
+
   finally
     ReportF.Free;
   end;
 end;
-
-// begin
-//
-//
-//  // Setup the master-detail relationship
-//  ReportF.qrContact.MasterSource := ReportF.DataSource1;
-//  ReportF.qrContact.MasterFields := 'id';
-//
-//  // Preview the report
-//  ReportF.RLReport1.Preview;
-//end;
-
 
 //procedure TExportF.printbtnClick(Sender: TObject);
 //var

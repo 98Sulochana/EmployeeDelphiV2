@@ -57,8 +57,8 @@ end;
 // 'Add' employee function
 procedure TMainF.addbtnClick(Sender: TObject);
 begin
-
   DataM.qr1.Append;
+  EmployeeF.ResetFormFields;  // Reset the form fields before showing
   EmployeeF.ShowModal;
 end;
 
@@ -158,3 +158,4 @@ begin
 end;
 
 end.
+

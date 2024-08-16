@@ -1,0 +1,207 @@
+object Form2: TForm2
+  Left = 0
+  Top = 0
+  Caption = 'Form2'
+  ClientHeight = 445
+  ClientWidth = 879
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  TextHeight = 15
+  object RLReport1: TRLReport
+    Left = 0
+    Top = 0
+    Width = 794
+    Height = 1123
+    DataSource = ds2
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = []
+    object RLBand1: TRLBand
+      Left = 38
+      Top = 38
+      Width = 718
+      Height = 91
+      BandType = btTitle
+    end
+    object RLBand2: TRLBand
+      Left = 38
+      Top = 129
+      Width = 718
+      Height = 104
+      object RLLabel1: TRLLabel
+        Left = 72
+        Top = 16
+        Width = 16
+        Height = 16
+        Caption = 'ID'
+      end
+      object RLLabel2: TRLLabel
+        Left = 72
+        Top = 40
+        Width = 38
+        Height = 16
+        Caption = 'Name'
+      end
+      object RLLabel3: TRLLabel
+        Left = 64
+        Top = 72
+        Width = 50
+        Height = 16
+        Caption = 'address'
+      end
+      object RLDBText1: TRLDBText
+        Left = 216
+        Top = 18
+        Width = 14
+        Height = 16
+        DataField = 'id'
+        DataSource = DataSource1
+        Text = ''
+      end
+      object RLDBText2: TRLDBText
+        Left = 216
+        Top = 40
+        Width = 36
+        Height = 16
+        DataField = 'name'
+        DataSource = DataSource1
+        Text = ''
+      end
+      object RLDBText3: TRLDBText
+        Left = 216
+        Top = 64
+        Width = 50
+        Height = 16
+        DataField = 'address'
+        DataSource = DataSource1
+        Text = ''
+      end
+    end
+    object RLBand3: TRLBand
+      Left = 38
+      Top = 233
+      Width = 718
+      Height = 56
+      object RLLabel4: TRLLabel
+        Left = 64
+        Top = 16
+        Width = 49
+        Height = 16
+        Caption = 'Contact'
+      end
+      object RLDBText4: TRLDBText
+        Left = 216
+        Top = 16
+        Width = 47
+        Height = 16
+        DataField = 'contact'
+        DataSource = ds2
+        Text = ''
+      end
+    end
+  end
+  object qr1: TFDQuery
+    Active = True
+    Connection = DataM.con1
+    SQL.Strings = (
+      'select * from empdata   ')
+    Left = 614
+    Top = 323
+    object qr1id: TFDAutoIncField
+      Alignment = taCenter
+      DisplayWidth = 8
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object qr1name: TStringField
+      AutoGenerateValue = arDefault
+      DisplayWidth = 40
+      FieldName = 'name'
+      Origin = '`name`'
+      Size = 100
+    end
+    object qr1empId: TStringField
+      AutoGenerateValue = arDefault
+      DisplayWidth = 17
+      FieldName = 'empId'
+      Origin = 'empId'
+      Size = 50
+    end
+    object qr1nic: TStringField
+      AutoGenerateValue = arDefault
+      DisplayWidth = 12
+      FieldName = 'nic'
+      Origin = 'nic'
+    end
+    object qr1cont: TStringField
+      AutoGenerateValue = arDefault
+      DisplayWidth = 23
+      FieldName = 'cont'
+      Origin = 'cont'
+      Size = 50
+    end
+    object qr1dob: TDateField
+      AutoGenerateValue = arDefault
+      DisplayWidth = 10
+      FieldName = 'dob'
+      Origin = 'dob'
+    end
+    object qr1address: TStringField
+      AutoGenerateValue = arDefault
+      DisplayWidth = 43
+      FieldName = 'address'
+      Origin = 'address'
+      Size = 254
+    end
+    object qr1age: TIntegerField
+      FieldKind = fkCalculated
+      FieldName = 'age'
+      Calculated = True
+    end
+  end
+  object DataSource1: TDataSource
+    DataSet = qr1
+    Left = 681
+    Top = 305
+  end
+  object ds2: TDataSource
+    DataSet = qrContact
+    Left = 701
+    Top = 387
+  end
+  object qrContact: TFDQuery
+    Active = True
+    MasterSource = DataSource1
+    MasterFields = 'id'
+    Connection = DataM.con1
+    SQL.Strings = (
+      'select * from contactdata')
+    Left = 629
+    Top = 387
+    object qrContactid: TFDAutoIncField
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object qrContactempId: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'empId'
+      Origin = 'empId'
+    end
+    object qrContactcontact: TStringField
+      FieldName = 'contact'
+      Origin = 'contact'
+      Required = True
+      Size = 50
+    end
+  end
+end

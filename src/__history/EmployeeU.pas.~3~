@@ -43,10 +43,12 @@ type
     procedure DeleteContactMenuItemClick(Sender: TObject);
     procedure ContactGridMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
   private
+
     function ValidateFields: Boolean;
     procedure CalculateAge;
     procedure SaveContacts(empId: Integer);
   public
+    procedure ResetFormFields;
   end;
 
 var
@@ -57,6 +59,21 @@ implementation
 {$R *.dfm}
 
 uses DataU;
+
+procedure TEmployeeF.ResetFormFields;
+begin
+  ided.Clear;
+  nameed.Clear;
+  empided.Clear;
+  niced.Clear;
+  dobed.Clear;
+  addressed.Clear;
+  ageed.Clear;
+
+  DataM.qrContact.Close;
+  DataM.qrContact.Open;
+  DataM.qrContact.EmptyDataSet;  // Clear the contact dataset
+end;
 
 // Validate form fields
 function TEmployeeF.ValidateFields: Boolean;
@@ -162,8 +179,7 @@ end;
 // Load contact details when form is shown
 procedure TEmployeeF.FormShow(Sender: TObject);
 begin
-  DataM.qrContact.Filter := 'empId=' + DataM.qr1.FieldByName('id').AsString;
-  DataM.qrContact.Filtered := True;      // apply filter to query
+  ResetFormFields;  // Reset form fields when the form is shown
 end;
 
 // On change event for DOB
@@ -191,7 +207,6 @@ end;
 // Handle the add contact menu item click
 procedure TEmployeeF.AddContactMenuItemClick(Sender: TObject);
 begin
-
   if DataM.qrContact.State in [dsInsert, dsEdit] then
   begin
     DataM.qrContact.FieldByName('empId').AsInteger := DataM.qr1.FieldByName('id').AsInteger;

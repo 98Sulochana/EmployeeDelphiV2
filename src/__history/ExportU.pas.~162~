@@ -30,7 +30,6 @@ type
     procedure exportCSV1Click(Sender: TObject);
     procedure ExportXML1Click(Sender: TObject);
     procedure ExportExcel1Click(Sender: TObject);
-   // procedure Button2Click(Sender: TObject);
   private
     { Private declarations }
     procedure ApplyFilter;
@@ -56,11 +55,6 @@ begin
   ApplyFilter;
 end;
 
-//procedure TExportF.Button2Click(Sender: TObject);
-//begin
-//  TestF.RLReport1.Preview;
-//end;
-
 procedure TExportF.DBGrid1MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
@@ -84,7 +78,7 @@ end;
 
 //Print button function implementation
 procedure TExportF.printbtnClick(Sender: TObject);
-
+//
 var
   Bookmarks: array of TBookmark;
   i: Integer;

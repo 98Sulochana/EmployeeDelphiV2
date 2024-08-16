@@ -191,7 +191,7 @@ end;
 // Handle the add contact menu item click
 procedure TEmployeeF.AddContactMenuItemClick(Sender: TObject);
 begin
-
+  DataM.qrContact.Close;
   if DataM.qrContact.State in [dsInsert, dsEdit] then
   begin
     DataM.qrContact.FieldByName('empId').AsInteger := DataM.qr1.FieldByName('id').AsInteger;

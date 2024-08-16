@@ -22,6 +22,7 @@ type
     exportCSV1: TMenuItem;
     ExportXML1: TMenuItem;
     ExportExcel1: TMenuItem;
+    Button2: TButton;
     procedure Button1Click(Sender: TObject);
     procedure printbtnClick(Sender: TObject);
     procedure DBGrid1MouseDown(Sender: TObject; Button: TMouseButton;

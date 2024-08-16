@@ -14,6 +14,18 @@ type
   TReportF = class(TForm)
     RLReport1: TRLReport;
     RLBand2: TRLBand;
+    RLSubDetail1: TRLSubDetail;
+    RLBand3: TRLBand;
+    RLLabel3: TRLLabel;
+    RLDBText1: TRLDBText;
+    RLDBText2: TRLDBText;
+    RLDBText3: TRLDBText;
+    RLDBText4: TRLDBText;
+    RLDBText5: TRLDBText;
+    RLLabel4: TRLLabel;
+    RLLabel5: TRLLabel;
+    RLLabel6: TRLLabel;
+    RLLabel7: TRLLabel;
     RLBand4: TRLBand;
     RLSystemInfo2: TRLSystemInfo;
     RLDraw2: TRLDraw;
@@ -38,19 +50,6 @@ type
     qrContactempId: TIntegerField;
     qrContactcontact: TStringField;
     ds2: TDataSource;
-    RLLabel3: TRLLabel;
-    RLLabel4: TRLLabel;
-    RLLabel5: TRLLabel;
-    RLLabel6: TRLLabel;
-    RLDBText2: TRLDBText;
-    RLDBText3: TRLDBText;
-    RLDBText4: TRLDBText;
-    RLDBText5: TRLDBText;
-    RLLabel8: TRLLabel;
-    RLDBText1: TRLDBText;
-    RLLabel7: TRLLabel;
-    RLDBText6: TRLDBText;
-    RLLabel9: TRLLabel;
   private
     { Private declarations }
   public

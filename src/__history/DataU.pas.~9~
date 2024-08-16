@@ -22,9 +22,9 @@ type
     ds2: TDataSource;
     qrContact: TFDQuery;
     qrContactid: TFDAutoIncField;
+    qrContactempId: TIntegerField;
     qrContactcontact: TStringField;
     qr1age: TIntegerField;
-    qrContactempId: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
    // procedure qrContactCalcFields(DataSet: TDataSet);
   private

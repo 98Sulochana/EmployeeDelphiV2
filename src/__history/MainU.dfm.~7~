@@ -37,35 +37,89 @@ object MainF: TMainF
       item
         Expanded = False
         FieldName = 'id'
-        Width = 79
+        Title.Alignment = taCenter
+        Title.Caption = 'ID'
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -11
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'name'
+        Title.Alignment = taCenter
+        Title.Caption = 'Name'
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -11
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'empId'
+        Title.Alignment = taCenter
+        Title.Caption = 'EmpId'
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -11
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'nic'
-        Width = 90
+        Title.Alignment = taCenter
+        Title.Caption = 'NIC'
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -11
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
+        Width = 81
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'dob'
-        Width = 77
+        Title.Alignment = taCenter
+        Title.Caption = 'DOB'
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -11
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'address'
-        Width = 337
+        Title.Alignment = taCenter
+        Title.Caption = 'Address'
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -11
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
+        Width = 341
+        Visible = True
+      end
+      item
+        Alignment = taLeftJustify
+        Expanded = False
+        FieldName = 'age'
+        Title.Alignment = taCenter
+        Title.Caption = 'Age'
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -11
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
+        Width = 46
         Visible = True
       end>
   end
@@ -77,7 +131,7 @@ object MainF: TMainF
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitWidth = 972
+    ExplicitWidth = 970
     object searchbtn: TButton
       Left = 456
       Top = 9

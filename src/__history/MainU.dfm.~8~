@@ -37,7 +37,6 @@ object MainF: TMainF
       item
         Expanded = False
         FieldName = 'id'
-        Width = 79
         Visible = True
       end
       item
@@ -58,6 +57,11 @@ object MainF: TMainF
       end
       item
         Expanded = False
+        FieldName = 'cont'
+        Visible = True
+      end
+      item
+        Expanded = False
         FieldName = 'dob'
         Width = 77
         Visible = True
@@ -65,7 +69,7 @@ object MainF: TMainF
       item
         Expanded = False
         FieldName = 'address'
-        Width = 337
+        Width = 222
         Visible = True
       end>
   end

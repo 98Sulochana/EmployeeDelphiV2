@@ -47,6 +47,7 @@ type
     procedure CalculateAge;
     procedure SaveContacts(empId: Integer);
   public
+    procedure ResetFormFields;
   end;
 
 var
@@ -57,6 +58,21 @@ implementation
 {$R *.dfm}
 
 uses DataU;
+
+procedure TEmployeeF.ResetFormFields;
+begin
+  ided.Clear;
+  nameed.Clear;
+  empided.Clear;
+  niced.Clear;
+  dobed.Clear;
+  addressed.Clear;
+  ageed.Clear;
+
+  DataM.qrContact.Close;
+  DataM.qrContact.Open;
+  DataM.qrContact.EmptyDataSet;  // Clear the contact dataset
+end;
 
 // Validate form fields
 function TEmployeeF.ValidateFields: Boolean;
@@ -96,7 +112,7 @@ begin
     DataM.qr1.FieldByName('age').AsInteger := Age;  // Set the age field in the dataset
   except
     ageed.Text := '';
-    if DataM.qr1.State in [dsEdit, dsInsert] then
+    if DataM.qr1.State in [dsEdit, dsInsert]) then
       DataM.qr1.FieldByName('age').Clear;  // Clear the age field if there is an error
   end;
 end;
@@ -162,8 +178,19 @@ end;
 // Load contact details when form is shown
 procedure TEmployeeF.FormShow(Sender: TObject);
 begin
-  DataM.qrContact.Filter := 'empId=' + DataM.qr1.FieldByName('id').AsString;
-  DataM.qrContact.Filtered := True;      // apply filter to query
+  if DataM.qr1.State = dsInsert then
+  begin
+    // New employee, clear contacts
+    DataM.qrContact.Close;
+    DataM.qrContact.Open;
+    DataM.qrContact.EmptyDataSet;
+  end
+  else
+  begin
+    // Existing employee, filter contacts
+    DataM.qrContact.Filter := 'empId=' + DataM.qr1.FieldByName('id').AsString;
+    DataM.qrContact.Filtered := True;      // apply filter to query
+  end;
 end;
 
 // On change event for DOB
@@ -191,7 +218,6 @@ end;
 // Handle the add contact menu item click
 procedure TEmployeeF.AddContactMenuItemClick(Sender: TObject);
 begin
-
   if DataM.qrContact.State in [dsInsert, dsEdit] then
   begin
     DataM.qrContact.FieldByName('empId').AsInteger := DataM.qr1.FieldByName('id').AsInteger;

@@ -17,34 +17,28 @@ object ReportF: TReportF
     Top = 8
     Width = 794
     Height = 1123
-    DataSource = DataM.ds2
+    DataSource = ds2
     ParentFont = True
     PreviewOptions.Caption = 'Employee Report'
     object RLBand2: TRLBand
       Left = 38
-      Top = 413
+      Top = 347
       Width = 718
-      Height = 21
+      Height = 23
       AutoSize = True
       object RLDBText1: TRLDBText
-        Left = 168
-        Top = 6
-        Width = 45
+        Left = 160
+        Top = 8
+        Width = 43
         Height = 15
         DataField = 'contact'
-        DataSource = DataM.ds2
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -12
-        Font.Name = 'Segoe UI'
-        Font.Style = [fsBold]
-        ParentFont = False
+        DataSource = ds2
         Text = ''
       end
     end
     object RLBand4: TRLBand
       Left = 38
-      Top = 434
+      Top = 370
       Width = 718
       Height = 45
       BandType = btFooter
@@ -85,8 +79,8 @@ object ReportF: TReportF
       Left = 38
       Top = 38
       Width = 718
-      Height = 375
-      BandType = btHeader
+      Height = 309
+      BandType = btTitle
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clNavy
       Font.Height = -13
@@ -349,154 +343,81 @@ object ReportF: TReportF
       end
       object RLLabel3: TRLLabel
         Left = 48
-        Top = 184
+        Top = 128
         Width = 41
         Height = 16
         Caption = 'Name'
-        Color = clCream
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -13
-        Font.Name = 'Arial'
-        Font.Style = [fsBold]
-        ParentColor = False
-        ParentFont = False
-        Transparent = False
       end
       object RLLabel4: TRLLabel
         Left = 48
-        Top = 224
+        Top = 168
         Width = 84
         Height = 16
         Caption = 'Employee ID'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -13
-        Font.Name = 'Arial'
-        Font.Style = [fsBold]
-        ParentFont = False
       end
       object RLLabel5: TRLLabel
-        Left = 50
-        Top = 264
+        Left = 48
+        Top = 208
         Width = 26
         Height = 16
         Caption = 'NIC'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -13
-        Font.Name = 'Arial'
-        Font.Style = [fsBold]
-        ParentFont = False
       end
       object RLLabel6: TRLLabel
         Left = 48
-        Top = 353
+        Top = 290
         Width = 52
         Height = 16
         Caption = 'Contact'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -13
-        Font.Name = 'Arial'
-        Font.Style = [fsBold]
-        ParentFont = False
       end
       object RLDBText2: TRLDBText
         Left = 168
-        Top = 312
+        Top = 248
         Width = 53
         Height = 16
         DataField = 'address'
-        DataSource = DataM.ds1
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -13
-        Font.Name = 'Arial'
-        Font.Style = [fsBold]
-        ParentFont = False
+        DataSource = DataSource1
         Text = ''
       end
       object RLDBText3: TRLDBText
         Left = 168
-        Top = 264
+        Top = 208
         Width = 23
         Height = 16
         DataField = 'nic'
-        DataSource = DataM.ds1
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -13
-        Font.Name = 'Arial'
-        Font.Style = [fsBold]
-        ParentFont = False
+        DataSource = DataSource1
         Text = ''
       end
       object RLDBText4: TRLDBText
         Left = 168
-        Top = 224
+        Top = 168
         Width = 44
         Height = 16
         DataField = 'empId'
-        DataSource = DataM.ds1
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -13
-        Font.Name = 'Arial'
-        Font.Style = [fsBold]
-        ParentFont = False
+        DataSource = DataSource1
         Text = ''
       end
       object RLDBText5: TRLDBText
-        Left = 168
-        Top = 184
+        Left = 165
+        Top = 118
         Width = 40
         Height = 16
         DataField = 'name'
-        DataSource = DataM.ds1
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -13
-        Font.Name = 'Arial'
-        Font.Style = [fsBold]
-        ParentFont = False
+        DataSource = DataSource1
         Text = ''
-      end
-      object RLLabel8: TRLLabel
-        Left = 50
-        Top = 312
-        Width = 54
-        Height = 16
-        Caption = 'Address'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -13
-        Font.Name = 'Arial'
-        Font.Style = [fsBold]
-        ParentFont = False
       end
       object RLLabel7: TRLLabel
         Left = 48
-        Top = 128
-        Width = 71
+        Top = 308
+        Width = 52
         Height = 16
-        Caption = 'Empolyee '
+        Caption = 'Contact'
       end
-      object RLDBText6: TRLDBText
-        Left = 125
-        Top = 128
-        Width = 44
+      object RLLabel8: TRLLabel
+        Left = 50
+        Top = 248
+        Width = 54
         Height = 16
-        DataField = 'empId'
-        DataSource = DataM.ds1
-        Text = ''
-      end
-      object RLLabel9: TRLLabel
-        Left = 175
-        Top = 128
-        Width = 55
-        Height = 16
-        Caption = 'Details :'
+        Caption = 'Address'
       end
     end
   end
@@ -506,9 +427,10 @@ object ReportF: TReportF
     Top = 241
   end
   object qr1: TFDQuery
+    Active = True
     Connection = DataM.con1
     SQL.Strings = (
-      'select * from empdata   ')
+      'select * from empdata    limit 5')
     Left = 662
     Top = 179
     object qr1id: TFDAutoIncField
@@ -568,12 +490,12 @@ object ReportF: TReportF
   object qrContact: TFDQuery
     Active = True
     MasterSource = DataSource1
-    MasterFields = 'id'
+    MasterFields = 'empId'
     Connection = DataM.con1
     SQL.Strings = (
       'select * from contactdata')
-    Left = 653
-    Top = 379
+    Left = 661
+    Top = 371
     object qrContactid: TFDAutoIncField
       FieldName = 'id'
       Origin = 'id'
@@ -594,7 +516,7 @@ object ReportF: TReportF
   end
   object ds2: TDataSource
     DataSet = qrContact
-    Left = 653
-    Top = 307
+    Left = 661
+    Top = 315
   end
 end

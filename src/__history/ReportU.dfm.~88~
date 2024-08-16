@@ -17,7 +17,7 @@ object ReportF: TReportF
     Top = 8
     Width = 794
     Height = 1123
-    DataSource = DataM.ds2
+    DataSource = ds2
     ParentFont = True
     PreviewOptions.Caption = 'Employee Report'
     object RLBand2: TRLBand
@@ -29,10 +29,10 @@ object ReportF: TReportF
       object RLDBText1: TRLDBText
         Left = 168
         Top = 6
-        Width = 45
+        Width = 145
         Height = 15
         DataField = 'contact'
-        DataSource = DataM.ds2
+        DataSource = ds2
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -12
@@ -86,7 +86,7 @@ object ReportF: TReportF
       Top = 38
       Width = 718
       Height = 375
-      BandType = btHeader
+      BandType = btTitle
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clNavy
       Font.Height = -13
@@ -405,10 +405,10 @@ object ReportF: TReportF
       object RLDBText2: TRLDBText
         Left = 168
         Top = 312
-        Width = 53
+        Width = 113
         Height = 16
         DataField = 'address'
-        DataSource = DataM.ds1
+        DataSource = DataSource1
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -13
@@ -420,10 +420,10 @@ object ReportF: TReportF
       object RLDBText3: TRLDBText
         Left = 168
         Top = 264
-        Width = 23
+        Width = 70
         Height = 16
         DataField = 'nic'
-        DataSource = DataM.ds1
+        DataSource = DataSource1
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -13
@@ -435,10 +435,10 @@ object ReportF: TReportF
       object RLDBText4: TRLDBText
         Left = 168
         Top = 224
-        Width = 44
+        Width = 70
         Height = 16
         DataField = 'empId'
-        DataSource = DataM.ds1
+        DataSource = DataSource1
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -13
@@ -450,10 +450,10 @@ object ReportF: TReportF
       object RLDBText5: TRLDBText
         Left = 168
         Top = 184
-        Width = 40
+        Width = 113
         Height = 16
         DataField = 'name'
-        DataSource = DataM.ds1
+        DataSource = DataSource1
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -13
@@ -488,11 +488,11 @@ object ReportF: TReportF
         Width = 44
         Height = 16
         DataField = 'empId'
-        DataSource = DataM.ds1
+        DataSource = DataSource1
         Text = ''
       end
       object RLLabel9: TRLLabel
-        Left = 175
+        Left = 183
         Top = 128
         Width = 55
         Height = 16
@@ -568,12 +568,12 @@ object ReportF: TReportF
   object qrContact: TFDQuery
     Active = True
     MasterSource = DataSource1
-    MasterFields = 'id'
+    MasterFields = 'empId'
     Connection = DataM.con1
     SQL.Strings = (
       'select * from contactdata')
-    Left = 653
-    Top = 379
+    Left = 581
+    Top = 163
     object qrContactid: TFDAutoIncField
       FieldName = 'id'
       Origin = 'id'
@@ -594,7 +594,7 @@ object ReportF: TReportF
   end
   object ds2: TDataSource
     DataSet = qrContact
-    Left = 653
-    Top = 307
+    Left = 573
+    Top = 243
   end
 end

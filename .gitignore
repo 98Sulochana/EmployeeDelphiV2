@@ -6,6 +6,8 @@
 !*.dpr
 !*.dproj
 
-# Or these directories
+# Or these directories and their contents
 !src/
+!src/**
 !res/
+!res/**

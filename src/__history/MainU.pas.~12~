@@ -57,7 +57,7 @@ end;
 // 'Add' employee function
 procedure TMainF.addbtnClick(Sender: TObject);
 begin
-
+  DataM.qrContact.Close;
   DataM.qr1.Append;
   EmployeeF.ShowModal;
 end;

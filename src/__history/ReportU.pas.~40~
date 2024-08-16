@@ -13,44 +13,28 @@ uses
 type
   TReportF = class(TForm)
     RLReport1: TRLReport;
-    RLBand2: TRLBand;
-    RLBand4: TRLBand;
-    RLSystemInfo2: TRLSystemInfo;
-    RLDraw2: TRLDraw;
-    DataSource1: TDataSource;
     RLBand1: TRLBand;
     RLLabel1: TRLLabel;
     RLSystemInfo1: TRLSystemInfo;
     RLLabel2: TRLLabel;
     RLDraw1: TRLDraw;
-    RLImage1: TRLImage;
-    qr1: TFDQuery;
-    qr1id: TFDAutoIncField;
-    qr1name: TStringField;
-    qr1empId: TStringField;
-    qr1nic: TStringField;
-    qr1cont: TStringField;
-    qr1dob: TDateField;
-    qr1address: TStringField;
-    qr1age: TIntegerField;
-    qrContact: TFDQuery;
-    qrContactid: TFDAutoIncField;
-    qrContactempId: TIntegerField;
-    qrContactcontact: TStringField;
-    ds2: TDataSource;
+    RLBand2: TRLBand;
+    RLSubDetail1: TRLSubDetail;
+    RLBand3: TRLBand;
     RLLabel3: TRLLabel;
-    RLLabel4: TRLLabel;
-    RLLabel5: TRLLabel;
-    RLLabel6: TRLLabel;
+    RLDBText1: TRLDBText;
     RLDBText2: TRLDBText;
     RLDBText3: TRLDBText;
     RLDBText4: TRLDBText;
     RLDBText5: TRLDBText;
-    RLLabel8: TRLLabel;
-    RLDBText1: TRLDBText;
+    RLLabel4: TRLLabel;
+    RLLabel5: TRLLabel;
+    RLLabel6: TRLLabel;
     RLLabel7: TRLLabel;
-    RLDBText6: TRLDBText;
-    RLLabel9: TRLLabel;
+    RLBand4: TRLBand;
+    RLSystemInfo2: TRLSystemInfo;
+    RLDraw2: TRLDraw;
+    RLImage1: TRLImage;
   private
     { Private declarations }
   public

@@ -8,7 +8,8 @@ uses
   ReportU in 'src\ReportU.pas' {ReportF},
   ExportU in 'src\ExportU.pas' {ExportF},
   Vcl.Themes,
-  Vcl.Styles;
+  Vcl.Styles,
+  ReportEmpU in 'src\ReportEmpU.pas' {Form2};
 
 {$R *.res}
 
@@ -21,5 +22,6 @@ begin
   Application.CreateForm(TEmployeeF, EmployeeF);
   Application.CreateForm(TReportF, ReportF);
   Application.CreateForm(TExportF, ExportF);
+  Application.CreateForm(TForm2, Form2);
   Application.Run;
 end.
