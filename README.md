@@ -17,11 +17,6 @@ The **Employee Management System** is an intuitive tool built using Delphi. It a
 ## Setup MySQL Database
 Import the empdetails.sql file inside the res folder into your MySQL server to create the database and tables. You can use tools like phpMyAdmin, HeidiSQL, or MySQL Workbench.
 
-## Screenshots of the Application
-![image](https://github.com/user-attachments/assets/06b668ae-66b5-438f-a0ae-b05d587eb5f0)
-![image](https://github.com/user-attachments/assets/86dc5b6d-8af6-40e6-9f28-1ec69fb541e7)
-![image](https://github.com/user-attachments/assets/11f20d28-e8f8-4ddb-a907-43676f3518c7)
-
 ## Additional Libraries
 This project utilizes the Fortes Report library for generating reports. Please download and install the library from its official GitHub repository:
 - Fortes Report Library: https://github.com/fortesinformatica/fortesreport-ce
@@ -30,6 +25,11 @@ This project utilizes the Fortes Report library for generating reports. Please d
 To apply the custom theme used in this project:
 - Go to Project > Options > Application > Appearance.
 - Under Custom Styles, tick the box for Ruby Graphite.
+
+## Screenshots of the Application
+![image](https://github.com/user-attachments/assets/06b668ae-66b5-438f-a0ae-b05d587eb5f0)
+![image](https://github.com/user-attachments/assets/86dc5b6d-8af6-40e6-9f28-1ec69fb541e7)
+![image](https://github.com/user-attachments/assets/11f20d28-e8f8-4ddb-a907-43676f3518c7)
 
 ## Setting Up the Project
 ### Clone the Repository
