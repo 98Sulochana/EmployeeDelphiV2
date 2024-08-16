@@ -406,7 +406,6 @@ object FormReport: TFormReport
       Height = 48
       AllowedBands = [btDetail, btSummary]
       DataSource = ds2
-      PageBreaking = pbAfterPrint
       object RLBand3: TRLBand
         Left = 0
         Top = 0

@@ -49,17 +49,12 @@ implementation
 {$R *.dfm}
 
 uses
-  DataU, ReportU, ReportEmpU;
+  DataU, ReportEmpU;
 
 procedure TExportF.Button1Click(Sender: TObject);
 begin
   ApplyFilter;
 end;
-
-//procedure TExportF.Button2Click(Sender: TObject);
-//begin
-//  TestF.RLReport1.Preview;
-//end;
 
 procedure TExportF.DBGrid1MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
